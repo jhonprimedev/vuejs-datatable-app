@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-      <JlDatatable
-        :url='datatable.url'
-        :columns="datatable.columns"  
+      <jl-datatable
+        :url='url'
+        :columns="columns"  
       />
   </div>
 </template>
@@ -11,55 +11,48 @@
 // @ is an alias to /src
 
 import JlDatatable from 'jl-datatable';
+import { reactive, toRefs } from 'vue';
 export default {
   name: 'Home',
   components: {
     JlDatatable
   },
-    data() {
-    return {
-      datatable: {
-        url: 'https://www.jhonpride.ybdweb.com/api/users',
-        columns: [       
-            {
-            title: 'ID',
-            key: 'id',
-            isSort: true,            
-            width: '5%'
-          },   
-          {
-            title: 'Name',
-            key: 'name',
-            isSort: true,
-            isSearch: true,
-            // width: '10%'
-          },
-          {
-            title: 'Last Name',
-            key: 'last_name',
-            isSort: false,
-            isSearch: false,
-            // width: '10%'
-          },
-          {
-            title: 'Email',
-            key: 'email',
-            isSort: false,
-            isSearch: true,
-            // width: '10%'
-          },
-          {
-            title: 'Address',
-            key: 'address',                        
-          },
-          {
-            title: 'Cell Phone',
-            key: 'cell_phone',  
-            width: '10%'                      
-          }
-        ]
-      }
-    }
-  },
+    setup(){
+    const data = reactive({
+      url: 'http://laravel-datatable.test/api/users',
+      columns: [
+        {
+          label: 'ID',
+          data: 'id',
+          searchable: false          
+        },
+        {
+          label: 'Name',
+          data: 'name'          
+        },
+        {
+          label: 'Last Name',
+          data: 'last_name'
+        },
+        {
+          label: 'Address',
+          data: 'address'
+        },
+        {
+          label: 'Email',
+          data: 'email',
+          orderable: false
+        },
+        {
+          label: 'Cell Phone',
+          data: 'cell_phone'
+        }
+      ],
+
+    });
+
+
+    return {...toRefs(data)};
+  }
 }
 </script>
